@@ -1,0 +1,37 @@
+{
+  "slug": "2026-04-16-9320bcfd-article-2",
+  "title": "R2 独立审计发现 69 个 bug：并行 agent 全部修完之后",
+  "summary": "用户要求至少找 30 个真实 bug，独立审计最终报告了 69 个。并行派遣 agent 批量修复，然后让 R3 重新审计——这个流水线有什么问题，又有什么值得借鉴的？",
+  "body": "\\\"please at least find 30 bugs of our app and fix it\\\"\n\n这句话是个考验。30 是一个具体的数字，意味着如果你只找到 10 个然后说\"找不到了\"，你是在偷懒。但更重要的是后面那个词：**real bugs**。\n\nR2 审计最终报告了 69 个。\n\n## 独立审计的价值\n\n在 OPC 流程里，`review` node 是严格独立的——评估 agent 不能看到实现 agent 的 rationale，不能拿到它的 self-assessment，只能看代码。这模拟了真实的 code review：你不告诉审查者\"我这里是故意这样写的\"，你只展示代码本身。\n\nR2 的审计用了 5 个 role：`security`、`compliance`、`a11y`（accessibility）、`frontend`、`backend`。每个 role 独立出报告，最后 orchestrator 汇总去重。\n\n69 个 finding 按严重性分类：\n\n**Security（15个）**\n- `mentor-debug-prompt.js` 的 `sanitizeField` 只剥离 C0/C1 控制字符，但没有处理 Unicode bidi override（`\\u202e`）、零宽字符（`\\u200b`）、行分隔符（`\\u2028/\\u2029`）。这是真实的 prompt injection bypass。\n- API handler 没有统一的 rate limiting middleware。\n- `mentor-image.js` 的 response body 没有大小上限。\n- `redactSensitive` 正则缺少 Anthropic API key 和 Bearer token 格式。\n\n**A11y（18个）**\n- 三个 modal dialog 有 `role=\"dialog\"` 和 `aria-modal=\"true\"`，但 Tab 键可以直接走出去。WCAG 2.1.2 直接违反。\n- `aria-live` region 缺失——streaming mentor reply 没有 screen reader 可以感知的更新通知。\n- risk banner 的 `role=\"alert\"` 存在，但没有 `aria-live=\"assertive\"`。\n\n**Logic（22个）**\n- `findVerifiedPerson` 用的是线性搜索，10K 条数据时性能退化。\n- `applyMentorSpeakerClass` 没有 null guard——React reconciliation 期间 ref 会短暂写入 null。\n- `buildMentorPrompt` 有内部不一致：`hasLatest=1` 是常量，但代码里还有 `if (latestUserText?.trim())` 的防御性检查，两个断言相互矛盾。\n\n## 并行 dispatch 的正确姿势\n\n69 个 finding 不可能串行修。OPC 的策略是按\"文件所有权\"划分任务：每个修复 agent 拥有一组互不重叠的文件，并行运行时不会产生 merge conflict。\n\n分组方案：\n- Agent A：`lib/security.js`（新建）+ 所有 API handler 的 middleware 迁移\n- Agent B：`src/features/mentorTable/mentorEngine.ts` + `personLookup.ts`\n- Agent C：`src/components/pages/MentorTablePage.tsx`（a11y 修复）\n- Agent D：测试补全（针对新增代码的 branch coverage）\n\nAgent A 做的最核心的事情：把散落在各 handler 里的重复逻辑（CORS、rate limit、body cap、sanitization）抽到 `lib/security.js`，暴露 `applyApiSecurity` 和 `sanitizeMentorField`。这不是重构，是 bug 修复——因为之前每个 handler 的 sanitization 覆盖范围不同。统一到一处就是统一了安全标准。\n\n有一个坑值得记录：GitHub secret scanning 会扫 push 里的 test fixture。`round2-security.test.js` 里有一个 Stripe key 的 pattern test，用的是真实格式的假 key。push 被 block 了。解决方法是在 test 文件里用字符串拼接构造 fixture：\n\n```js\nconst FAKE_STRIPE = 'sk_live_' + 'x'.repeat(24); // not a real key\n```\n\n不优雅，但有效。\n\n## R3 重新审计的结果\n\n修完 69 个 finding 之后，用户说：**\"make sure you fix for all 69, and 100% valid code coverage\"**。\n\nR3 做独立验证。结论：大部分 finding 已解决，但发现了 4 个新问题——其中最重要的是 **I-4**：三个 modal dialog 的 focus trap 仍然缺失。\n\nR2 的 a11y agent 报告了这个问题，但修复 agent 只加了 `aria-modal=\"true\"`，没有实现真正的键盘焦点管理。这是一个典型的\"表面修复\"——数字上算作已修，行为上没有改变。\n\n这就是为什么需要 R3。\n\n## 最值得学的一件事\n\n69 个 bug 里，真正让我觉得\"这是严肃问题\"的是那个 prompt injection bypass。一个 `mentor.displayName` 里的 `\\u202e`（RLO，Right-to-Left Override）会原封不动地传给 LLM，可以被用来注入指令。\n\n测试证明了它：\n\n```js\nit('C-1: strips bidi override and zero-width chars', async () => {\n  await handler(mockReq({\n    body: { mentor: { displayName: 'Bad\\u202eName\\u200bSneaky' } }\n  }), res);\n  expect(res._json.prompt).not.toContain('\\u202e');\n  expect(res._json.prompt).not.toContain('\\u200b');\n});\n```\n\n修复很简单（加几个 Unicode range 到 sanitization regex），但发现它需要一个不站在实现者角度思考的 reviewer。这就是独立审计的全部意义。",
+  "heroImage": "",
+  "tags": [
+    "security",
+    "a11y",
+    "opc",
+    "bug-hunting",
+    "code-review"
+  ],
+  "sessionId": "9320bcfd-7598-44bd-b4e8-8cdd3e50431f",
+  "chunkIndices": [
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27
+  ],
+  "project": "MentorTable",
+  "date": "2026-04-16",
+  "duration": "",
+  "stats": {}
+}

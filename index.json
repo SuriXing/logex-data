@@ -1,0 +1,178 @@
+{
+  "articles": [
+    {
+      "slug": "2026-04-16-9320bcfd-article-3",
+      "title": "从零写一个 React focus trap hook：WCAG 2.1.2 背后的实现细节",
+      "summary": "给三个 modal dialog 加 focus trap，看起来简单，结果踩了 jsdom 的几何接口坑、React 的 TDZ 陷阱、以及 CSS selector 死代码导致的覆盖率掉点。",
+      "date": "2026-04-16",
+      "tags": [
+        "react",
+        "accessibility",
+        "wcag",
+        "testing",
+        "typescript"
+      ],
+      "project": "MentorTable",
+      "chunkIndices": [
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34
+      ],
+      "sessionId": "9320bcfd-7598-44bd-b4e8-8cdd3e50431f",
+      "heroImage": "",
+      "path": "2026/04/16/2026-04-16-9320bcfd-article-3.json"
+    },
+    {
+      "slug": "2026-04-16-9320bcfd-article-2",
+      "title": "R2 独立审计发现 69 个 bug：并行 agent 全部修完之后",
+      "summary": "用户要求至少找 30 个真实 bug，独立审计最终报告了 69 个。并行派遣 agent 批量修复，然后让 R3 重新审计——这个流水线有什么问题，又有什么值得借鉴的？",
+      "date": "2026-04-16",
+      "tags": [
+        "security",
+        "a11y",
+        "opc",
+        "bug-hunting",
+        "code-review"
+      ],
+      "project": "MentorTable",
+      "chunkIndices": [
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27
+      ],
+      "sessionId": "9320bcfd-7598-44bd-b4e8-8cdd3e50431f",
+      "heroImage": "",
+      "path": "2026/04/16/2026-04-16-9320bcfd-article-2.json"
+    },
+    {
+      "slug": "2026-04-16-9320bcfd-article-1",
+      "title": "从能跑到真的测了：一次 100% 代码覆盖率的冲刺",
+      "summary": "用 OPC multi-agent loop 给 MentorTable 刷满覆盖率的过程里，最难的不是写测试，而是回答一个问题：这个测试到底在测什么？",
+      "date": "2026-04-16",
+      "tags": [
+        "testing",
+        "coverage",
+        "vitest",
+        "opc",
+        "react"
+      ],
+      "project": "MentorTable",
+      "chunkIndices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        11
+      ],
+      "sessionId": "9320bcfd-7598-44bd-b4e8-8cdd3e50431f",
+      "heroImage": "",
+      "path": "2026/04/16/2026-04-16-9320bcfd-article-1.json"
+    },
+    {
+      "slug": "2026-04-16-9059aeb7-article-2",
+      "title": "追杀 WebGL 闪烁：从玄学到根因到清零",
+      "summary": "「IT IS STILL FLIKERRING」——这句话我重复了不知道多少遍。记录三轮失败的修复，最终定位到多频正弦叠加 + 透明 InstancedMesh z-sort 两个根因，以及 zero-brightness-motion 的最终解法。",
+      "date": "2026-04-16",
+      "tags": [
+        "webgl",
+        "react-three-fiber",
+        "debugging",
+        "performance",
+        "three.js"
+      ],
+      "project": "iamsuri",
+      "chunkIndices": [
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72
+      ],
+      "sessionId": "9059aeb7-1fbe-424d-a12c-96a93c1cba24",
+      "heroImage": "",
+      "path": "2026/04/16/2026-04-16-9059aeb7-article-2.json"
+    },
+    {
+      "slug": "2026-04-16-9059aeb7-article-1",
+      "title": "用 React Three Fiber 造一个 3D 作品集世界",
+      "summary": "凌晨，我盯着一列卡片式的作品集，觉得太平了。于是花了几天，用 R3F 造了一个可以走进去的等距 3D 世界——四间房间，真实的门，可切换的视角。记录从零到部署的完整过程。",
+      "date": "2026-04-16",
+      "tags": [
+        "react-three-fiber",
+        "three.js",
+        "webgl",
+        "portfolio",
+        "r3f"
+      ],
+      "project": "iamsuri",
+      "chunkIndices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21
+      ],
+      "sessionId": "9059aeb7-1fbe-424d-a12c-96a93c1cba24",
+      "heroImage": "",
+      "path": "2026/04/16/2026-04-16-9059aeb7-article-1.json"
+    }
+  ],
+  "lastUpdated": "2026-04-16"
+}
