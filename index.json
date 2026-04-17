@@ -1,6 +1,101 @@
 {
   "articles": [
     {
+      "slug": "2026-04-17-fe0e82b8-article-2",
+      "title": "把匿名 Q&A 网站炼成 95 分：Supabase 安全加固全记录",
+      "summary": "我想把自己写的匿名问答网站上线，服务 1K 用户。于是我让 6 个 AI 角色走了一遍网站，结果他们在 Postgres 的角落里挖出了一个我从没想到的安全陷阱：REVOKE SELECT 不只拦 SELECT，还会拦 WHERE。这是那次加固的完整记录。",
+      "date": "2026-04-17",
+      "tags": [
+        "supabase",
+        "security",
+        "postgres",
+        "rls",
+        "admin",
+        "opc"
+      ],
+      "project": "ProblemSolver",
+      "chunkIndices": [
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        39,
+        40,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53
+      ],
+      "sessionId": "fe0e82b8-c5a0-426b-937e-46c339b79e4e",
+      "heroImage": "",
+      "path": "2026/04/17/2026-04-17-fe0e82b8-article-2.json"
+    },
+    {
+      "slug": "2026-04-17-fe0e82b8-article-1",
+      "title": "100% 有意义的覆盖率：我如何用 OPC Loop 重新定义「测好」",
+      "summary": "写测试不难，写「有意义的」测试很难。这篇文章记录了我用 OPC 多角色评审循环，从「覆盖率数字」到「覆盖率质量」的完整转变——以及为什么 95% 的 coverage 可能比 100% 更诚实。",
+      "date": "2026-04-17",
+      "tags": [
+        "testing",
+        "opc",
+        "coverage",
+        "vitest",
+        "playwright"
+      ],
+      "project": "ProblemSolver",
+      "chunkIndices": [
+        1,
+        2,
+        3,
+        5,
+        6,
+        7,
+        8,
+        14,
+        15,
+        16,
+        17
+      ],
+      "sessionId": "fe0e82b8-c5a0-426b-937e-46c339b79e4e",
+      "heroImage": "",
+      "path": "2026/04/17/2026-04-17-fe0e82b8-article-1.json"
+    },
+    {
+      "slug": "2026-04-17-9059aeb7-article-2",
+      "title": "z-index:9999 输给了 z-index:80 — CSS 层叠上下文的隐藏规则",
+      "summary": "toast 设了 z-index:9999 还是被挡住了。这不是 bug，而是 CSS 层叠上下文的正确行为。 / A toast with z-index:9999 was covered by something with z-index:80. Not a bug — CSS stacking context working exactly as designed.",
+      "date": "2026-04-17",
+      "tags": [
+        "css",
+        "z-index",
+        "stacking-context",
+        "debugging",
+        "react"
+      ],
+      "project": "iamsuri",
+      "chunkIndices": [
+        72,
+        73
+      ],
+      "sessionId": "9059aeb7-1fbe-424d-a12c-96a93c1cba24",
+      "heroImage": "",
+      "path": "2026/04/17/2026-04-17-9059aeb7-article-2.json"
+    },
+    {
       "slug": "2026-04-16-9320bcfd-article-3",
       "title": "从零写一个 React focus trap hook：WCAG 2.1.2 背后的实现细节",
       "summary": "给三个 modal dialog 加 focus trap，看起来简单，结果踩了 jsdom 的几何接口坑、React 的 TDZ 陷阱、以及 CSS selector 死代码导致的覆盖率掉点。",
@@ -91,28 +186,18 @@
     },
     {
       "slug": "2026-04-16-9059aeb7-article-2",
-      "title": "追杀 WebGL 闪烁：从玄学到根因到清零",
-      "summary": "「IT IS STILL FLIKERRING」——这句话我重复了不知道多少遍。记录三轮失败的修复，最终定位到多频正弦叠加 + 透明 InstancedMesh z-sort 两个根因，以及 zero-brightness-motion 的最终解法。",
+      "title": "3D世界从「僵硬」到「活了」：一次真实的 React Three Fiber 迭代记录",
+      "summary": "用户说「everything 僵硬」——这句话背后藏着七个不同根因的 bug。从帧率崩溃到房间镜像、地板闪烁、穿墙摄像机、点击失效，一次完整的 R3F 世界打磨记录。 / The word 'stiff' hid seven separate bugs. A complete debugging record of a React Three Fiber 3D world.",
       "date": "2026-04-16",
       "tags": [
-        "webgl",
         "react-three-fiber",
-        "debugging",
+        "three.js",
+        "webgl",
         "performance",
-        "three.js"
+        "debugging"
       ],
       "project": "iamsuri",
       "chunkIndices": [
-        48,
-        49,
-        50,
-        51,
-        52,
-        53,
-        54,
-        55,
-        56,
-        57,
         58,
         59,
         60,
@@ -126,8 +211,7 @@
         68,
         69,
         70,
-        71,
-        72
+        71
       ],
       "sessionId": "9059aeb7-1fbe-424d-a12c-96a93c1cba24",
       "heroImage": "",
@@ -174,5 +258,5 @@
       "path": "2026/04/16/2026-04-16-9059aeb7-article-1.json"
     }
   ],
-  "lastUpdated": "2026-04-16"
+  "lastUpdated": "2026-04-17"
 }

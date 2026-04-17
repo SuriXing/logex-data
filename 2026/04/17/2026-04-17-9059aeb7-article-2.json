@@ -1,0 +1,23 @@
+{
+  "slug": "2026-04-17-9059aeb7-article-2",
+  "title": "z-index:9999 输给了 z-index:80 — CSS 层叠上下文的隐藏规则",
+  "summary": "toast 设了 z-index:9999 还是被挡住了。这不是 bug，而是 CSS 层叠上下文的正确行为。 / A toast with z-index:9999 was covered by something with z-index:80. Not a bug — CSS stacking context working exactly as designed.",
+  "body": "场景：一个 React Three Fiber 的 3D 世界。第一次进入房间时弹出一个提示 toast——z-index 设成了 9999，被 z-index 80 的导航栏挡住了。\n\n9999 > 80，为什么输了？\n\n---\n\n## 层叠上下文是一个「信封」\n\nCSS z-index 不是全局排名，而是**层叠上下文（stacking context）**内部的排名。层叠上下文就像信封：内部的纸张有自己的顺序，但信封作为整体和外部比较时，用的是信封自己的层级——内部编号再高，也无法突破信封边界。\n\n## 这个案例的结构\n\n```\n<ThreeDRoute>\n  <World3D>           ← .world3d-root: position:fixed, 无 z-index\n  <ProjectsDock />    ← .projects-dock: position:fixed, z-index:80\n```\n\ntoast 在 `.world3d-root` 内部，z-index:9999。\n\n`position: fixed` 创建层叠上下文。`.world3d-root` 没有显式 z-index → 层级 `auto`（等效 0）。`.projects-dock` 有 `z-index:80` → 层级 80。\n\n0 < 80，所以 `projects-dock` 在 `world3d-root` **之上**——无论内部 z-index 多高。\n\n## 三种修法\n\n**方法一（最干净）**：移除无关的竞争者。`ProjectsDock` 是 2D 视图的导航，3D 全屏世界里不需要它。\n\n```tsx\n// 删掉这一行\n<ProjectsDock />\n```\n\n**方法二**：给容器显式 z-index：\n\n```css\n.world3d-root { z-index: 100; }\n```\n\n**方法三**：React Portal 让 toast 逃出容器的层叠上下文。\n\n## 高发区\n\nR3F 和全屏 canvas 框架是这个坑的高发区——canvas 容器通常 `position:fixed; inset:0`，开发者不设 z-index（「反正铺满了」），结果所有 HUD 元素都活在 z-index:auto 的信封里，任何有显式 z-index 的外部元素都能盖过它们。\n\n调试第一步：不是查 z-index 数值，而是找层叠上下文边界。\n\n---\n\n---\n\n# English Version\n\nA React Three Fiber 3D world. First time entering a room, a hint toast pops up — styled with `z-index: 9999`. A navigation dock with `z-index: 80` covers it.\n\n9999 > 80. Why did it lose?\n\n---\n\n## A stacking context is an envelope\n\nCSS z-index isn't a global ranking — it's a ranking *within a stacking context*. Think of a stacking context as an envelope: papers inside can have their own order, but the envelope competes with other envelopes based on *the envelope's own level*, not its contents. No matter how high a paper's number, it can't reach outside the envelope to compete with papers in other envelopes.\n\n## The DOM structure\n\n```\n<ThreeDRoute>\n  <World3D>           ← .world3d-root: position:fixed, no z-index\n  <ProjectsDock />    ← .projects-dock: position:fixed, z-index:80\n```\n\nThe toast is inside `.world3d-root`, with `z-index: 9999`.\n\n`position: fixed` creates a stacking context. `.world3d-root` has no explicit `z-index` → its level is `auto` (effectively 0). `.projects-dock` has `z-index: 80` → level 80.\n\n0 < 80, so `projects-dock` paints *above* the entire `world3d-root` stacking context — regardless of how high the internal z-index values are.\n\n## Three fixes\n\n**Option 1 (cleanest)**: Remove the competing element. `ProjectsDock` is navigation for the 2D views — it has no purpose in the immersive 3D world.\n\n```tsx\n<World3D onExitTo2D={handleExit} />\n// ProjectsDock removed\n```\n\n**Option 2**: Give the container an explicit z-index:\n\n```css\n.world3d-root { z-index: 100; } /* higher than ProjectsDock's 80 */\n```\n\n**Option 3**: React Portal — render the toast outside the container so it escapes its stacking context entirely.\n\n## Where this bites you most\n\nR3F and full-screen canvas frameworks are the prime danger zone. The canvas wrapper naturally gets `position: fixed; inset: 0`, developers don't set a z-index on it (\"it fills the whole screen anyway\"), and all HUD elements end up trapped in a z-index:auto envelope. Any sibling element with an explicit z-index will paint over them.\n\nWhen debugging: don't look at z-index values first. Find the stacking context boundary — identify which ancestor creates a new context, then check that ancestor's level in the global stack.",
+  "heroImage": "",
+  "tags": [
+    "css",
+    "z-index",
+    "stacking-context",
+    "debugging",
+    "react"
+  ],
+  "sessionId": "9059aeb7-1fbe-424d-a12c-96a93c1cba24",
+  "chunkIndices": [
+    72,
+    73
+  ],
+  "project": "iamsuri",
+  "date": "2026-04-17",
+  "duration": "",
+  "stats": {}
+}
