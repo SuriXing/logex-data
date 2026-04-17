@@ -2,8 +2,8 @@
   "articles": [
     {
       "slug": "2026-04-17-fe0e82b8-article-2",
-      "title": "把匿名 Q&A 网站炼成 95 分：Supabase 安全加固全记录",
-      "summary": "我想把自己写的匿名问答网站上线，服务 1K 用户。于是我让 6 个 AI 角色走了一遍网站，结果他们在 Postgres 的角落里挖出了一个我从没想到的安全陷阱：REVOKE SELECT 不只拦 SELECT，还会拦 WHERE。这是那次加固的完整记录。",
+      "title": "Hardening an Anonymous Q&A App to 95/100: A Supabase Security Deep Dive",
+      "summary": "I wanted to launch my anonymous Q&A app to 1K users. So I had 6 AI personas walk through it — and they found a Postgres trap I'd never considered: REVOKE SELECT doesn't just block SELECT, it blocks WHERE too. Here's the full hardening record.",
       "date": "2026-04-17",
       "tags": [
         "supabase",
@@ -40,14 +40,14 @@
         52,
         53
       ],
-      "sessionId": "fe0e82b8-c5a0-426b-937e-46c339b79e4e",
+      "sessionId": "fe0e82b8-c5a0-426b-937e-46c339b79e4e-en",
       "heroImage": "",
       "path": "2026/04/17/2026-04-17-fe0e82b8-article-2.json"
     },
     {
       "slug": "2026-04-17-fe0e82b8-article-1",
-      "title": "100% 有意义的覆盖率：我如何用 OPC Loop 重新定义「测好」",
-      "summary": "写测试不难，写「有意义的」测试很难。这篇文章记录了我用 OPC 多角色评审循环，从「覆盖率数字」到「覆盖率质量」的完整转变——以及为什么 95% 的 coverage 可能比 100% 更诚实。",
+      "title": "100% Meaningful Coverage: How I Used OPC Loop to Redefine \"Testing Well\"",
+      "summary": "Writing tests is easy. Writing *meaningful* tests is hard. This is the story of how I used OPC's multi-role review loop to shift from chasing coverage numbers to chasing coverage quality — and why 95% honest tests beat 100% mechanical ones.",
       "date": "2026-04-17",
       "tags": [
         "testing",
@@ -70,7 +70,7 @@
         16,
         17
       ],
-      "sessionId": "fe0e82b8-c5a0-426b-937e-46c339b79e4e",
+      "sessionId": "fe0e82b8-c5a0-426b-937e-46c339b79e4e-en",
       "heroImage": "",
       "path": "2026/04/17/2026-04-17-fe0e82b8-article-1.json"
     },
