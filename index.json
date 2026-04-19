@@ -1,6 +1,42 @@
 {
   "articles": [
     {
+      "slug": "2026-04-19-bc324f40-article-1",
+      "title": "把网页做成一个地方：一个 3D 作品集的 UX 反复",
+      "summary": "一个 8 年级女孩的 3D 个人作品集，做了一周还没法让访客知道怎么玩。这篇记录从「我出不去房间」到「门会自动开但关不上」一路修过来的踩坑：first-person 视角 hand-off、drei <Html> 当 in-world 招牌、自动行为和用户意图打架的 hysteresis 修复。",
+      "date": "2026-04-19",
+      "tags": [
+        "react-three-fiber",
+        "ux",
+        "drei",
+        "3d",
+        "portfolio",
+        "claude-code"
+      ],
+      "project": "suriworld",
+      "chunkIndices": [
+        27,
+        29,
+        30,
+        38,
+        39,
+        41,
+        43,
+        44,
+        45,
+        46,
+        48,
+        49,
+        50,
+        51,
+        53,
+        54
+      ],
+      "sessionId": "bc324f40-0adb-43a5-9b1a-e2b6ca79eebd",
+      "heroImage": "",
+      "path": "2026/04/19/2026-04-19-bc324f40-article-1.json"
+    },
+    {
       "slug": "2026-04-17-fe0e82b8-article-2",
       "title": "Hardening an Anonymous Q&A App to 95/100: A Supabase Security Deep Dive",
       "summary": "I wanted to launch my anonymous Q&A app to 1K users. So I had 6 AI personas walk through it — and they found a Postgres trap I'd never considered: REVOKE SELECT doesn't just block SELECT, it blocks WHERE too. Here's the full hardening record.",
@@ -258,5 +294,5 @@
       "path": "2026/04/16/2026-04-16-9059aeb7-article-1.json"
     }
   ],
-  "lastUpdated": "2026-04-17"
+  "lastUpdated": "2026-04-19"
 }
